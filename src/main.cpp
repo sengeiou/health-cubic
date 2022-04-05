@@ -1,21 +1,38 @@
 #include "device.h"
+#include "app/app.h"
+
+ImuAction *act_info;    
 
 void handle(ImuAction *act_info)
 {
-    Serial.printf("%d", act_info->active);
+    if (TURN_LEFT == act_info->active)
+    {
+        App::Instance().TurnLeft();
+        delay(300);
+    }
+    else if (TURN_RIGHT == act_info->active)
+    {
+        App::Instance().TurnRight();
+        delay(300);
+    }
+    else if (GO_FORWORD == act_info->active)
+    {
+        
+    }
+    act_info->active = UNKNOWN;
+    act_info->isValid = 0;
 }
 
 void setup()
 {
     Serial.begin(115200);
-    Serial.printf("正在初始化...");
-    InitDevices();
-    Serial.printf("初始化完成");
+    App::Instance().Init();
 }
 
 void loop()
 {
     screen.routine();
-    handle(mpu.update(200));
+    act_info = mpu.update(200);
+    handle(act_info);
 }
 

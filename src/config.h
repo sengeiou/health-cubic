@@ -19,15 +19,14 @@ struct Config
     uint8_t rotation;             // 屏幕旋转方向
     uint8_t auto_calibration_mpu; // 是否自动校准陀螺仪 0关闭自动校准 1打开自动校准
     uint8_t mpu_order;
-    MPU_Config mpu_config; // 保存mup的校准数据
 };
 
 void config_read(const char *file_path, Config *cfg);
 
 void config_save(const char *file_path, Config *cfg);
 
-void mpu_config_read(const char *file_path, Config *cfg);
+void mpu_config_read(const char *file_path, MPU_Config *cfg);
 
-void mpu_config_save(const char *file_path, Config *cfg);
+void mpu_config_save(const char *file_path, MPU_Config *cfg);
 
 #endif

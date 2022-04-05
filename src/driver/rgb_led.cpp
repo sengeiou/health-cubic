@@ -1,6 +1,5 @@
 #include "rgb_led.h"
 #include "device.h"
-// #include <esp32-hal-timer.h>
 
 void Pixel::init()
 {
