@@ -36,6 +36,7 @@ public:
 	virtual void Update(int tick) override;
 	virtual void Show() override;
 	virtual void Init() override;
+	
 	virtual void Close() override
 	{
 		showing = false;

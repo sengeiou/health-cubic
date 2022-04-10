@@ -8,19 +8,14 @@ void handle(ImuAction *act_info)
     if (TURN_LEFT == act_info->active)
     {
         App::Instance().TurnLeft();
-        delay(300);
     }
     else if (TURN_RIGHT == act_info->active)
     {
         App::Instance().TurnRight();
-        delay(300);
-    }
-    else if (GO_FORWORD == act_info->active)
-    {
-        
     }
     act_info->active = UNKNOWN;
-    act_info->isValid = 0;
+    act_info->isValid = 1;
+    delay(300);
 }
 
 void setup()

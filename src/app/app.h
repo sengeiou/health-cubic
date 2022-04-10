@@ -34,7 +34,7 @@ class App
 	void Update(uint32_t period)
 	{
 		UpdateData(period);
-		//if (HasNotifies()) return;
+		if (HasNotifies()) return;
 		AutoNextPage(period);
 	}
 
@@ -119,7 +119,7 @@ public:
 		tf.init();
 		lv_fs_if_init();
 		lv_port_indev_init();
-		mpu.init(config.mpu_order, config.auto_calibration_mpu, &mpu_config); // 初始化比较耗时
+		mpu.init(config.mpu_order, config.auto_calibration_mpu, &mpu_config);
 		RgbParam rgb_setting = {LED_MODE_HSV, 1, 32, 255, 255, 255, 255, 1, 1, 1, 0.15, 0.25, 0.001, 30};
 		rgb_thread_init(&rgb_setting);
 
@@ -145,12 +145,18 @@ public:
 
 	void TurnLeft()
 	{
-		ChangePage(current == 0 ? PageCount() - 1 : current - 1);
+		if (editPage == nullptr)
+		{
+			ChangePage(current == 0 ? PageCount() - 1 : current - 1);
+		}
 	}
 
 	void TurnRight()
 	{
-		ChangePage(current == PageCount() - 1 ? 0 : current + 1);
+		if (editPage == nullptr)
+		{
+			ChangePage(current == PageCount() - 1 ? 0 : current + 1);
+		}
 	}
 
 	void ButtonDown()

@@ -21,13 +21,14 @@ lv_obj_t* Container(lv_obj_t* parent)
     return cont;
 }
 
-lv_obj_t* Dropdown(lv_obj_t* parent, const char* value_str, const char* option)
+lv_obj_t* Dropdown(lv_obj_t* parent, const char* value_str, const char* option, lv_style_t* font)
 {
     lv_obj_t* obj = lv_dropdown_create(parent, NULL);
     lv_obj_add_style(obj, LV_CONT_PART_MAIN, Style::Default());
     lv_obj_add_style(obj, LV_CONT_PART_MAIN, Style::WhiteFont());
     lv_obj_set_style_local_value_str(obj, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, value_str);
     lv_obj_set_style_local_value_color(obj, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
+    lv_obj_add_style(obj, LV_LABEL_PART_MAIN, font);
     lv_obj_set_width(obj, 200);
     lv_dropdown_set_options(obj, option);
 

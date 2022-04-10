@@ -13,11 +13,7 @@ class DrinkData
 	DrinkData() {}
 
 public:
-	static DrinkData& Instance()
-	{
-		static DrinkData data;
-		return data;
-	}
+	static DrinkData& Instance();
 
 	void ReadData()
 	{

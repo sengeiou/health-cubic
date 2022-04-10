@@ -13,8 +13,8 @@
 #define TIMEZERO_OFFSIZE (28800000) // 8小时
 
 int updateTime = 0;
-constexpr auto UPDATE_TIME = 30 * 60 * 1000;
-static const char weeks[7][4] = {"一", "二", "三", "四", "五", "六", "日"};
+constexpr auto GET_DATA_TIME = 30 * 60 * 1000;
+static const char weeks[7][4] = { "日", "一", "二", "三", "四", "五", "六"};
 
 const char *Week(int day)
 {
@@ -100,7 +100,7 @@ void Weather::Update(int tick)
 	App::Instance().timestamp += tick;
 	UpdateTime(&data);
 	UpdateText();
-	if (updateTime < UPDATE_TIME)
+	if (updateTime < GET_DATA_TIME)
 	{
 		return;
 	}
@@ -126,6 +126,7 @@ void Weather::Show()
 	l1 = Label(cont, Style::Simhei18());
 	l2 = Label(cont, Style::Monts46());
 	l3 = Label(cont, Style::Simhei18());
+	UpdateText();
 }
 
 void Weather::UpdateText()
@@ -135,9 +136,7 @@ void Weather::UpdateText()
 		lv_label_set_text_fmt(l1, "%s %s\0", data.city, data.wea);
 		lv_label_set_text_fmt(l2, "%02d : %02d\0", data.hour, data.minute);
 		lv_label_set_text_fmt(l3, "%2d月%2d日 周%s", data.month, data.day, data.week);
-		delay(30);
 	}
-	
 }
 
 void Weather::Init()

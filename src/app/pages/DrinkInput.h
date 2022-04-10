@@ -1,6 +1,7 @@
 #pragma once
 #include "EditPage.h"
 #include "app/app.h"
+#include "../../driver/lv_port_indev.h"
 #include "../data/DrinkData.h"
 
 class DrinkInput : public EditPage
@@ -28,13 +29,19 @@ public:
 		lv_obj_t* cont = Container(Root());
 
 		Label(cont, "补充水分", Style::Simhei18());
-		drinkType = Dropdown(cont, "饮品", "水\n茶\n牛奶\n奶茶\n咖啡\n果汁\n其他");
-		volume = Dropdown(cont, "ml", "50\n100\n150\n200\n250\n300\n350\n400\n450\n500");
+		drinkType = Dropdown(cont, "饮品", "水\n茶\n牛奶\n奶茶\n咖啡\n果汁\n其他", Style::Simhei18());
+		volume = Dropdown(cont, "ml", "50\n100\n150\n200\n250\n300\n350\n400\n450\n500", Style::Simhei18());
 
 		lv_obj_t* btn1 = lv_btn_create(cont, NULL);
 		lv_obj_set_event_cb(btn1, event_handler);
-		auto label = lv_label_create(btn1, NULL);
-		lv_label_set_text(label, "确 定");
+		auto label = Label(btn1, "确 定", Style::Simhei18());
+		lv_obj_add_style(label, LV_BTN_PART_MAIN, Style::BlackFont());
+
+		lv_group_t * g = lv_group_create();
+		lv_group_add_obj(g, drinkType);
+		lv_group_add_obj(g, volume);
+		lv_group_add_obj(g, btn1);
+		lv_indev_set_group(indev_encoder, g);
 	}
 
 	static void event_handler(lv_obj_t* obj, lv_event_t event)
